@@ -1,0 +1,179 @@
+[gd_scene load_steps=13 format=3 uid="uid://umob42jqtsfy"]
+
+[ext_resource type="Texture2D" uid="uid://by05sreprn4w6" path="res://assets/player/player.png" id="1_qighj"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_uyvpl"]
+[ext_resource type="PackedScene" uid="uid://cm8butvcfy8ki" path="res://shooter/shooter.tscn" id="3_6n0cr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5sjnl"]
+radius = 7.0
+height = 18.0
+
+[sub_resource type="Animation" id="Animation_0q7gf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [13]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5qxkv"]
+resource_name = "fall"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [18]
+}
+
+[sub_resource type="Animation" id="Animation_71aln"]
+resource_name = "hurt"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_ilb88"]
+resource_name = "iddle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [13, 14, 15, 16]
+}
+
+[sub_resource type="Animation" id="Animation_8x1p0"]
+resource_name = "jump"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [17]
+}
+
+[sub_resource type="Animation" id="Animation_hi4rn"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s0b40"]
+_data = {
+"RESET": SubResource("Animation_0q7gf"),
+"fall": SubResource("Animation_5qxkv"),
+"hurt": SubResource("Animation_71aln"),
+"iddle": SubResource("Animation_ilb88"),
+"jump": SubResource("Animation_8x1p0"),
+"run": SubResource("Animation_hi4rn")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m486p"]
+radius = 8.0
+height = 22.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 0
+script = ExtResource("1_uyvpl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_qighj")
+hframes = 19
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 5)
+shape = SubResource("CapsuleShape2D_5sjnl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s0b40")
+}
+autoplay = "iddle"
+
+[node name="DebugLabel" type="Label" parent="."]
+offset_left = -29.0
+offset_top = -57.0
+offset_right = 309.0
+offset_bottom = 150.0
+scale = Vector2(0.174964, 0.172685)
+theme_override_font_sizes/font_size = 48
+text = "PLACEHOLDER
+PLACEHOLDER
+PLACEHOLDER"
+
+[node name="SoundPlayer" type="AudioStreamPlayer2D" parent="."]
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 20
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-1, 5)
+shape = SubResource("CapsuleShape2D_m486p")
+
+[node name="Shooter" parent="." instance=ExtResource("3_6n0cr")]
+speed = 200.0
+shoot_delay = 1.0
+
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
