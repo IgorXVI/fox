@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://umob42jqtsfy"]
+[gd_scene load_steps=16 format=3 uid="uid://umob42jqtsfy"]
 
 [ext_resource type="Texture2D" uid="uid://by05sreprn4w6" path="res://assets/player/player.png" id="1_qighj"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_uyvpl"]
@@ -132,6 +132,44 @@ _data = {
 radius = 8.0
 height = 22.0
 
+[sub_resource type="Animation" id="Animation_j3dc7"]
+resource_name = "invincible"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_syqr8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r5m82"]
+_data = {
+"RESET": SubResource("Animation_syqr8"),
+"invincible": SubResource("Animation_j3dc7")
+}
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 0
 script = ExtResource("1_uyvpl")
@@ -173,7 +211,22 @@ position = Vector2(-1, 5)
 shape = SubResource("CapsuleShape2D_m486p")
 
 [node name="Shooter" parent="." instance=ExtResource("3_6n0cr")]
-speed = 200.0
-shoot_delay = 1.0
+speed = 300.0
+shoot_delay = 0.5
+
+[node name="AnimationPlayerInvincible" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r5m82")
+}
+
+[node name="InvincibleTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.4
+one_shot = true
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+[connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
