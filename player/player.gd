@@ -13,7 +13,7 @@ class_name Player
 
 
 const GRAVITY: float = 1000.0
-const RUN_SPEED: float = 120.0
+const RUN_SPEED: float = 300.0
 const MAX_FALL_SPEED: float = 400.0
 const JUMP_VELOCITY: float = -400.0
 const HURT_JUMP_VELOCITY: float = -100.0
@@ -22,6 +22,7 @@ enum PLAYER_STATE { IDLE, RUN, JUMP, FALL, HURT }
 
 var _state: PLAYER_STATE = PLAYER_STATE.IDLE
 var _invincible = false
+var _lives: int = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -45,10 +46,11 @@ func _physics_process(delta: float) -> void:
 		shoot()
 	
 func update_debug_label() -> void:
-	debug_label.text = "floor: %s\ninv: %s\nstate: %s\nvel x: %.0f\nvel y: %.0f\n" % [
+	debug_label.text = "floor: %s\ninv: %s\nstate: %s\nlives: %s\nvel x: %.0f\nvel y: %.0f\n" % [
 		is_on_floor(),
 		_invincible,
 		PLAYER_STATE.keys()[_state],
+		_lives,
 		velocity.x,
 		velocity.y
 	]
@@ -112,7 +114,7 @@ func set_state(new_state: PLAYER_STATE) -> void:
 		PLAYER_STATE.RUN:
 			animation_player.play("run")
 		PLAYER_STATE.HURT:
-			animation_player.play("hurt")
+			apply_hurt_jump()
 		PLAYER_STATE.FALL:
 			animation_player.play("fall")
 		PLAYER_STATE.JUMP:
@@ -125,7 +127,6 @@ func go_invincible():
 	invincible_timer.start()
 	
 func apply_hurt_jump():
-	set_state(PLAYER_STATE.HURT)
 	animation_player.play("hurt")
 	velocity.y = HURT_JUMP_VELOCITY
 	hurt_timer.start()
@@ -133,9 +134,17 @@ func apply_hurt_jump():
 func apply_hit():
 	if _invincible:
 		return
+		
+	_lives -= 1
+	SignalManager.on_player_hit.emit(_lives)
+	if _lives <= 0:
+		SignalManager.on_game_over.emit()
+		set_physics_process(false)
+		return
+		
 	
 	go_invincible()
-	apply_hurt_jump()
+	set_state(PLAYER_STATE.HURT)
 	
 	SoundManager.play_clip(sound_player, SoundManager.SOUND_DAMAGE)
 

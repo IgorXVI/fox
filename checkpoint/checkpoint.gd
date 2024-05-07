@@ -17,4 +17,4 @@ func on_boss_killed(_points: int):
 
 
 func _on_area_entered(area: Area2D) -> void:
-	print("LEVEL COMPLETE")
+	SignalManager.on_level_complete.emit()
