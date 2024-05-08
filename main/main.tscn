@@ -60,12 +60,12 @@ vertical_alignment = 1
 
 [node name="LabelHighScore" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-text = "HIGH SCORE: 0000"
+text = "HIGH SCORE: 0"
 label_settings = SubResource("LabelSettings_mgdad")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LabelHighScore2" type="Label" parent="VBoxContainer"]
+[node name="LabelStart" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "PRESS SPACE TO START"
 label_settings = SubResource("LabelSettings_geeha")

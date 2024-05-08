@@ -10,13 +10,15 @@ class_name Player
 @onready var animation_player_invincible: AnimationPlayer = $AnimationPlayerInvincible
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var hurt_timer: Timer = $HurtTimer
+@onready var hit_box: Area2D = $HitBox
 
 
 const GRAVITY: float = 1000.0
 const RUN_SPEED: float = 300.0
 const MAX_FALL_SPEED: float = 400.0
-const JUMP_VELOCITY: float = -400.0
+const JUMP_VELOCITY: float = -500.0
 const HURT_JUMP_VELOCITY: float = -100.0
+const FALL_OFF_MAX: float = 100
 
 enum PLAYER_STATE { IDLE, RUN, JUMP, FALL, HURT }
 
@@ -31,6 +33,8 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	fallen_off()
+	
 	if !is_on_floor():
 		velocity.y += GRAVITY * delta
 		
@@ -130,6 +134,13 @@ func apply_hurt_jump():
 	animation_player.play("hurt")
 	velocity.y = HURT_JUMP_VELOCITY
 	hurt_timer.start()
+	
+func fallen_off():
+	if global_position.y < FALL_OFF_MAX:
+		return
+	
+	SignalManager.on_game_over.emit()
+	set_physics_process(false)
 
 func apply_hit():
 	if _invincible:
@@ -141,7 +152,6 @@ func apply_hit():
 		SignalManager.on_game_over.emit()
 		set_physics_process(false)
 		return
-		
 	
 	go_invincible()
 	set_state(PLAYER_STATE.HURT)
@@ -151,9 +161,16 @@ func apply_hit():
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	apply_hit()
 
+func check_inside_danger():
+	for area in hit_box.get_overlapping_areas():
+		if area.is_in_group("Dangers"):
+			apply_hit()
+			return
+
 func _on_invincible_timer_timeout() -> void:
 	_invincible = false
 	animation_player_invincible.stop()
+	check_inside_danger()
 
 
 func _on_hurt_timer_timeout() -> void:

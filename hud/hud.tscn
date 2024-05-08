@@ -34,7 +34,7 @@ size_flags_vertical = 0
 [node name="ScoreLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "0000"
+text = "SCORE: 0"
 label_settings = ExtResource("1_4vtc6")
 vertical_alignment = 1
 
@@ -100,7 +100,7 @@ vertical_alignment = 1
 
 [node name="LevelCompleteLabel2" type="Label" parent="VBoxLevelComplete"]
 layout_mode = 2
-text = "PRESS JUMP FOR NEXT LEVEL"
+text = "PRESS SPACE FOR NEXT LEVEL"
 label_settings = ExtResource("4_mvoxp")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -129,7 +129,7 @@ vertical_alignment = 1
 
 [node name="LevelCompleteLabel2" type="Label" parent="VBoxGameOver"]
 layout_mode = 2
-text = "PRESS JUMP FOR MAIN MENU"
+text = "PRESS SPACE FOR MAIN MENU"
 label_settings = ExtResource("4_mvoxp")
 horizontal_alignment = 1
 vertical_alignment = 1
