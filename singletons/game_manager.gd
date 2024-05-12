@@ -18,7 +18,7 @@ func load_main_scene():
 	get_tree().change_scene_to_packed(MAIN_SCENE)
 	
 func load_next_level():	
-	_current_level += 1
+	_current_level = 4
 	
 	if _current_level > TOTAL_LEVELS:
 		load_main_scene()

@@ -8,6 +8,8 @@ const TRIGGER_CONDITION = "parameters/conditions/on_trigger"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	SignalManager.on_boss_killed.connect(on_boss_killed)
+	animation_tree[TRIGGER_CONDITION] = true
+	monitoring = true
 
 	
 func on_boss_killed(_points: int):

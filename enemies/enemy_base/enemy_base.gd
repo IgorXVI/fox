@@ -50,5 +50,4 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
-	print("enemy hit")
 	die()

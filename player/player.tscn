@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://by05sreprn4w6" path="res://assets/player/player.png" id="1_qighj"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_uyvpl"]
-[ext_resource type="PackedScene" uid="uid://cm8butvcfy8ki" path="res://shooter/shooter.tscn" id="3_6n0cr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5sjnl"]
 radius = 7.0
@@ -129,8 +128,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m486p"]
-radius = 8.0
-height = 22.0
+radius = 6.0
+height = 18.0
 
 [sub_resource type="Animation" id="Animation_syqr8"]
 length = 0.001
@@ -170,6 +169,9 @@ _data = {
 "invincible": SubResource("Animation_j3dc7")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_elba7"]
+size = Vector2(11, 5.3125)
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 32
 script = ExtResource("1_uyvpl")
@@ -190,6 +192,7 @@ libraries = {
 autoplay = "iddle"
 
 [node name="DebugLabel" type="Label" parent="."]
+visible = false
 offset_left = -29.0
 offset_top = -57.0
 offset_right = 309.0
@@ -210,10 +213,6 @@ collision_mask = 20
 position = Vector2(-1, 5)
 shape = SubResource("CapsuleShape2D_m486p")
 
-[node name="Shooter" parent="." instance=ExtResource("3_6n0cr")]
-speed = 300.0
-shoot_delay = 0.5
-
 [node name="AnimationPlayerInvincible" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_r5m82")
@@ -227,6 +226,22 @@ one_shot = true
 wait_time = 0.4
 one_shot = true
 
+[node name="CoyoteTimer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+target_position = Vector2(21, 0)
+
+[node name="JumpKill" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="JumpKill"]
+position = Vector2(-0.5, 17.3438)
+shape = SubResource("RectangleShape2D_elba7")
+
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_hurt_timer_timeout"]
+[connection signal="timeout" from="CoyoteTimer" to="." method="_on_coyote_timer_timeout"]
+[connection signal="area_entered" from="JumpKill" to="." method="_on_jump_kill_area_entered"]

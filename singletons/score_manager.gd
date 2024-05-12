@@ -49,8 +49,6 @@ func load_highscore():
 	var file = FileAccess.open(HS_FILE, FileAccess.READ)
 	var data = JSON.parse_string(file.get_as_text())
 	
-	print("loaded: ", data)
-	
 	if "high_score" in data:
 		_high_score = data["high_score"]
 		
@@ -65,5 +63,3 @@ func save_highscore():
 	var data_str = JSON.stringify(data)
 	
 	file.store_string(data_str)
-	
-	print("saved: ", data)

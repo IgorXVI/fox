@@ -44,10 +44,10 @@ _data = {
 "spin": SubResource("Animation_wwiue")
 }
 
-[node name="BallSpikes" type="PathFollow2D"]
+[node name="BallSpikes" type="PathFollow2D" groups=["Dangers"]]
 script = ExtResource("1_jim7g")
 
-[node name="HitBox" type="Area2D" parent="."]
+[node name="HitBox" type="Area2D" parent="." groups=["Dangers"]]
 collision_layer = 4
 collision_mask = 0
 

@@ -15,7 +15,7 @@ func _exit_tree() -> void:
 	_tween.kill()
 
 func set_time_to_move() -> void:
-	var delta = p1.global_position.distance_to (p2.global_position)
+	var delta = p1.global_position.distance_to(p2.global_position)
 	_time_to_move = delta / speed
 
 func set_moving() -> void:

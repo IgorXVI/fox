@@ -6,25 +6,33 @@ class_name Player
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var debug_label: Label = $DebugLabel
 @onready var sound_player: AudioStreamPlayer2D = $SoundPlayer
-@onready var shooter: Node2D = $Shooter
 @onready var animation_player_invincible: AnimationPlayer = $AnimationPlayerInvincible
 @onready var invincible_timer: Timer = $InvincibleTimer
 @onready var hurt_timer: Timer = $HurtTimer
 @onready var hit_box: Area2D = $HitBox
+@onready var coyote_timer: Timer = $CoyoteTimer
+@onready var ray_cast_right: RayCast2D = $RayCastRight
 
 
-const GRAVITY: float = 1000.0
-const RUN_SPEED: float = 300.0
+const GRAVITY: float = 800.0
+const RUN_SPEED: float = 200.0
 const MAX_FALL_SPEED: float = 400.0
-const JUMP_VELOCITY: float = -500.0
+const JUMP_VELOCITY: float = -300.0
 const HURT_JUMP_VELOCITY: float = -100.0
 const FALL_OFF_MAX: float = 100
+
+const WALL_SLIDE: float = 20.0
 
 enum PLAYER_STATE { IDLE, RUN, JUMP, FALL, HURT }
 
 var _state: PLAYER_STATE = PLAYER_STATE.IDLE
 var _invincible = false
 var _lives: int = 5
+var _can_coyote = true
+var _jump_counter = 0
+var _wall_jump_power = Vector2(300, -200)
+var _wall_jump_direction = 0
+var _is_wall_jumping = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,9 +42,16 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	fallen_off()
-	
+		
 	if !is_on_floor():
 		velocity.y += GRAVITY * delta
+
+		if _can_coyote and coyote_timer.is_stopped():
+			coyote_timer.start()
+	else:
+		_can_coyote = true
+		_is_wall_jumping = false
+		_jump_counter = 0
 		
 	get_input()
 		
@@ -45,9 +60,6 @@ func _physics_process(delta: float) -> void:
 	calc_state()
 	
 	update_debug_label()
-	
-	if Input.is_action_just_pressed("shot"):
-		shoot()
 	
 func update_debug_label() -> void:
 	debug_label.text = "floor: %s\ninv: %s\nstate: %s\nlives: %s\nvel x: %.0f\nvel y: %.0f\n" % [
@@ -59,14 +71,28 @@ func update_debug_label() -> void:
 		velocity.y
 	]
 
-func shoot() -> void:
-	if sprite_2d.flip_h:
-		shooter.shoot(Vector2.LEFT)
-	else:
-		shooter.shoot(Vector2.RIGHT)
-
 func get_input() -> void:
 	if _state == PLAYER_STATE.HURT:
+		return
+		
+	if is_on_wall() and Input.is_action_pressed("climb"):
+		var flip_direction = false
+		
+		velocity.y = WALL_SLIDE
+		
+		if ray_cast_right.is_colliding():
+			_wall_jump_direction = -1
+			flip_direction = true
+		else:
+			_wall_jump_direction = 1
+			flip_direction = false
+		
+		if Input.is_action_just_pressed("jump"):
+			_is_wall_jumping = true
+			sprite_2d.flip_h = flip_direction
+			velocity = Vector2(_wall_jump_direction * _wall_jump_power.x, _wall_jump_power.y)
+	
+	if _is_wall_jumping:
 		return
 	
 	velocity.x = 0
@@ -78,9 +104,13 @@ func get_input() -> void:
 		velocity.x = RUN_SPEED
 		sprite_2d.flip_h = false
 	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+		
+	if Input.is_action_just_pressed("jump") and _jump_counter < 1 and (is_on_floor() or _can_coyote):
+		_jump_counter += 1
+		
 		velocity.y = JUMP_VELOCITY
 		SoundManager.play_clip(sound_player, SoundManager.SOUND_JUMP)
+		
 	
 	velocity.y = clampf(velocity.y, JUMP_VELOCITY, MAX_FALL_SPEED)
 
@@ -175,3 +205,13 @@ func _on_invincible_timer_timeout() -> void:
 
 func _on_hurt_timer_timeout() -> void:
 	set_state(PLAYER_STATE.IDLE)
+
+
+func _on_coyote_timer_timeout() -> void:
+	_can_coyote = false
+	coyote_timer.stop()
+
+
+func _on_jump_kill_area_entered(area: Area2D) -> void:
+	if !area.is_in_group("Dangers"):
+		velocity.y = JUMP_VELOCITY
