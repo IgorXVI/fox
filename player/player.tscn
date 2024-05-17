@@ -230,7 +230,10 @@ one_shot = true
 wait_time = 0.2
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
-target_position = Vector2(21, 0)
+target_position = Vector2(10, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-13, 0)
 
 [node name="JumpKill" type="Area2D" parent="."]
 collision_layer = 8

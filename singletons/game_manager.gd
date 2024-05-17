@@ -1,7 +1,7 @@
 extends Node
 
 const GROUP_PLAYER: String = "player"
-const TOTAL_LEVELS: int = 4
+const TOTAL_LEVELS: int = 1
 const MAIN_SCENE: PackedScene = preload("res://main/main.tscn")
 
 var _current_level: int = 0
@@ -18,7 +18,7 @@ func load_main_scene():
 	get_tree().change_scene_to_packed(MAIN_SCENE)
 	
 func load_next_level():	
-	_current_level = 4
+	_current_level += 1
 	
 	if _current_level > TOTAL_LEVELS:
 		load_main_scene()

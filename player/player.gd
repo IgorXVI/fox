@@ -12,6 +12,7 @@ class_name Player
 @onready var hit_box: Area2D = $HitBox
 @onready var coyote_timer: Timer = $CoyoteTimer
 @onready var ray_cast_right: RayCast2D = $RayCastRight
+@onready var ray_cast_left: RayCast2D = $RayCastLeft
 
 
 const GRAVITY: float = 800.0
@@ -75,7 +76,7 @@ func get_input() -> void:
 	if _state == PLAYER_STATE.HURT:
 		return
 		
-	if is_on_wall() and Input.is_action_pressed("climb"):
+	if  (ray_cast_right.is_colliding() or ray_cast_left.is_colliding()) and Input.is_action_pressed("climb"):
 		var flip_direction = false
 		
 		velocity.y = WALL_SLIDE
@@ -90,7 +91,8 @@ func get_input() -> void:
 		if Input.is_action_just_pressed("jump"):
 			_is_wall_jumping = true
 			sprite_2d.flip_h = flip_direction
-			velocity = Vector2(_wall_jump_direction * _wall_jump_power.x, _wall_jump_power.y)
+			velocity.x = _wall_jump_direction * _wall_jump_power.x
+			velocity.y = _wall_jump_power.y
 	
 	if _is_wall_jumping:
 		return
@@ -109,7 +111,6 @@ func get_input() -> void:
 		_jump_counter += 1
 		
 		velocity.y = JUMP_VELOCITY
-		SoundManager.play_clip(sound_player, SoundManager.SOUND_JUMP)
 		
 	
 	velocity.y = clampf(velocity.y, JUMP_VELOCITY, MAX_FALL_SPEED)
