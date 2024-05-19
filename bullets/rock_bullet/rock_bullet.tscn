@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://n5k4y7m1mn6x"]
+
+[ext_resource type="PackedScene" uid="uid://f6nhujb1at34" path="res://bullets/bullet_base/bullet_base.tscn" id="1_iww37"]
+[ext_resource type="Texture2D" uid="uid://di0twtpivroap" path="res://assets/props/rock-1.png" id="2_bojoq"]
+
+[sub_resource type="Animation" id="Animation_avsfo"]
+resource_name = "rotation"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_tej4n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_75cwl"]
+_data = {
+"RESET": SubResource("Animation_tej4n"),
+"rotation": SubResource("Animation_avsfo")
+}
+
+[node name="RockBullet" instance=ExtResource("1_iww37")]
+
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(0, -1)
+scale = Vector2(0.255255, 0.229916)
+texture = ExtResource("2_bojoq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_75cwl")
+}
+autoplay = "rotation"

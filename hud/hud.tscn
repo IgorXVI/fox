@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp40gedryufuv"]
+[gd_scene load_steps=7 format=3 uid="uid://cp40gedryufuv"]
 
 [ext_resource type="LabelSettings" uid="uid://c2070td87y5md" path="res://GL_WHITE.tres" id="1_4vtc6"]
 [ext_resource type="Script" path="res://hud/hud.gd" id="1_xt7qb"]
 [ext_resource type="Texture2D" uid="uid://dkqoa235h2odu" path="res://assets/items/pixel heart 2.png" id="2_n2xbs"]
 [ext_resource type="LabelSettings" uid="uid://bxdj14vtyqust" path="res://LG_64.tres" id="3_p0rl8"]
 [ext_resource type="LabelSettings" uid="uid://drtdc1dkrjs35" path="res://LG_24_sub_title.tres" id="4_mvoxp"]
+[ext_resource type="AudioStream" uid="uid://bp30odud7edgf" path="res://assets/sound/game_over.ogg" id="6_fknda"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -133,3 +134,11 @@ text = "PRESS SPACE FOR MAIN MENU"
 label_settings = ExtResource("4_mvoxp")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GameOverSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_fknda")
+
+[node name="GameOverTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="GameOverTimer" to="." method="_on_game_over_timer_timeout"]

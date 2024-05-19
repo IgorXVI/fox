@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://kb6x7wveow6n"]
+
+[ext_resource type="Texture2D" uid="uid://dudapjjfycxvj" path="res://assets/backgrounds/background_island/back.png" id="1_j6w8v"]
+[ext_resource type="Texture2D" uid="uid://c62aq3dp4iwyi" path="res://assets/backgrounds/background_island/middle.png" id="2_f2u6i"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="ParallaxLayerSky" type="ParallaxLayer" parent="."]
+position = Vector2(-6896, 205)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayerSky"]
+offset_left = -528.0
+offset_top = -769.0
+offset_right = 9472.0
+offset_bottom = -529.0
+scale = Vector2(2, 2)
+texture = ExtResource("1_j6w8v")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ParallaxLayerForest" type="ParallaxLayer" parent="."]
+position = Vector2(-6887, 228)
+motion_scale = Vector2(0.99, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayerForest"]
+offset_left = -538.0
+offset_top = -542.0
+offset_right = 9462.0
+offset_bottom = -174.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_f2u6i")
+stretch_mode = 1

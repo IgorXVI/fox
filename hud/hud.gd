@@ -5,8 +5,11 @@ extends Control
 @onready var v_box_game_over: VBoxContainer = $VBoxGameOver
 @onready var h_box_hearts: HBoxContainer = $MarginContainer/HBoxContainer/HBoxHearts
 @onready var score_label: Label = $MarginContainer/HBoxContainer/ScoreLabel
+@onready var game_over_sound: AudioStreamPlayer = $GameOverSound
+@onready var game_over_timer: Timer = $GameOverTimer
 
 var _hearts: Array
+var _game_over_timer_done = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,14 +33,22 @@ func on_level_complete():
 	v_box_level_complete.visible = true
 	
 func on_game_over():
-	Engine.time_scale = 0
 	color_rect.visible = true
 	v_box_game_over.visible = true
+	
+	game_over_sound.play()
+	_game_over_timer_done = false
+	game_over_timer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if v_box_level_complete.visible and Input.is_action_just_pressed("jump"):
 		GameManager.load_next_level()
 	
-	if v_box_game_over.visible and Input.is_action_just_pressed("jump"):
+	if _game_over_timer_done and v_box_game_over.visible and Input.is_action_just_pressed("jump"):
 		GameManager.load_main_scene()
+
+
+func _on_game_over_timer_timeout() -> void:
+	_game_over_timer_done = true
+	Engine.time_scale = 0

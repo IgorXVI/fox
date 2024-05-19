@@ -74,7 +74,6 @@ shape = SubResource("CircleShape2D_i6hkj")
 [node name="Shooter" parent="." index="6" instance=ExtResource("4_qyi6x")]
 speed = 80.0
 life_span = 20.0
-bullet_key = 1
 shoot_delay = 2.0
 
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

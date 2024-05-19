@@ -74,3 +74,4 @@ vertical_alignment = 1
 
 [node name="MusicMain" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_nfxxi")
+autoplay = true

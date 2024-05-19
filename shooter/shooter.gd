@@ -5,7 +5,7 @@ extends Node2D
 
 @export var speed: float = 50.0
 @export var life_span: float = 10.0
-@export var bullet_key: ObjectMaker.BULLET_KEY = ObjectMaker.BULLET_KEY.PLAYER
+@export var bullet_key: ObjectMaker.BULLET_KEY = ObjectMaker.BULLET_KEY.ROCK
 @export var shoot_delay: float = 0.7
 
 var _can_shoot = true

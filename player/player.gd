@@ -107,7 +107,11 @@ func get_input() -> void:
 		sprite_2d.flip_h = false
 	
 		
-	if Input.is_action_just_pressed("jump") and _jump_counter < 1 and (is_on_floor() or _can_coyote):
+	if (
+		Input.is_action_just_pressed("jump")
+		and _jump_counter < 1
+		and (is_on_floor() or _can_coyote)
+	):
 		_jump_counter += 1
 		
 		velocity.y = JUMP_VELOCITY

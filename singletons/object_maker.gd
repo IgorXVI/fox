@@ -1,13 +1,14 @@
 extends Node
 
 
-enum BULLET_KEY { PLAYER, ENEMY }
+enum BULLET_KEY { PLAYER, ENEMY, ROCK }
 
 enum SCENE_KEY { EXPLOSION, PICKUP }
 
 const BULLETS = {
 	BULLET_KEY.PLAYER: preload("res://bullets/player_bullet/player_bullet.tscn"),
-	BULLET_KEY.ENEMY: preload("res://bullets/enemy_bullet/enemy_bullet.tscn")
+	BULLET_KEY.ENEMY: preload("res://bullets/enemy_bullet/enemy_bullet.tscn"),
+	BULLET_KEY.ROCK: preload("res://bullets/rock_bullet/rock_bullet.tscn")
 }
 
 const SIMPLE_SCENES = {

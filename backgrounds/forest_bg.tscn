@@ -1,0 +1,125 @@
+[gd_scene load_steps=13 format=3 uid="uid://bjftdi18ftgm1"]
+
+[ext_resource type="Texture2D" uid="uid://suhivmlnsyd" path="res://assets/backgrounds/game_background_forest/Layer_0011_0.png" id="1_xss1n"]
+[ext_resource type="Texture2D" uid="uid://bdr383323n7h4" path="res://assets/backgrounds/game_background_forest/Layer_0010_1.png" id="2_8pw48"]
+[ext_resource type="Texture2D" uid="uid://dweo6ciqm2qhl" path="res://assets/backgrounds/game_background_forest/Layer_0009_2.png" id="3_gs0lm"]
+[ext_resource type="Texture2D" uid="uid://bc6at4gkqqmx2" path="res://assets/backgrounds/game_background_forest/Layer_0008_3.png" id="4_hf37i"]
+[ext_resource type="Texture2D" uid="uid://d7r08ynjio5q" path="res://assets/backgrounds/game_background_forest/Layer_0007_Lights.png" id="5_2cqyf"]
+[ext_resource type="Texture2D" uid="uid://bd6womhra84ux" path="res://assets/backgrounds/game_background_forest/Layer_0006_4.png" id="6_5fjrf"]
+[ext_resource type="Texture2D" uid="uid://daw2boifma3ui" path="res://assets/backgrounds/game_background_forest/Layer_0005_5.png" id="7_n1ikh"]
+[ext_resource type="Texture2D" uid="uid://ll3veybei3fo" path="res://assets/backgrounds/game_background_forest/Layer_0004_Lights.png" id="8_j07fn"]
+[ext_resource type="Texture2D" uid="uid://dgfr8ydirohid" path="res://assets/backgrounds/game_background_forest/Layer_0003_6.png" id="9_8jawu"]
+[ext_resource type="Texture2D" uid="uid://7rk82selsby1" path="res://assets/backgrounds/game_background_forest/Layer_0002_7.png" id="10_l3taw"]
+[ext_resource type="Texture2D" uid="uid://d1nyi53yuqx27" path="res://assets/backgrounds/game_background_forest/Layer_0001_8.png" id="11_vudo5"]
+[ext_resource type="Texture2D" uid="uid://dkt5sg1hxe6ub" path="res://assets/backgrounds/game_background_forest/Layer_0000_9.png" id="12_3u3pj"]
+
+[node name="ScrollingBg" type="ParallaxBackground"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("1_xss1n")
+stretch_mode = 1
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer2"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("2_8pw48")
+stretch_mode = 1
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer3"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("3_gs0lm")
+stretch_mode = 1
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer4"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("4_hf37i")
+stretch_mode = 1
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer5"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("5_2cqyf")
+stretch_mode = 1
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer6"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("6_5fjrf")
+stretch_mode = 1
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer7"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("7_n1ikh")
+stretch_mode = 1
+
+[node name="ParallaxLayer8" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer8"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("8_j07fn")
+stretch_mode = 1
+
+[node name="ParallaxLayer9" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer9"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("9_8jawu")
+stretch_mode = 1
+
+[node name="ParallaxLayer10" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer10"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("10_l3taw")
+stretch_mode = 1
+
+[node name="ParallaxLayer11" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer11"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("11_vudo5")
+stretch_mode = 1
+
+[node name="ParallaxLayer12" type="ParallaxLayer" parent="."]
+position = Vector2(-2358, -782)
+motion_scale = Vector2(0.95, 1)
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxLayer12"]
+offset_right = 100000.0
+offset_bottom = 793.0
+texture = ExtResource("12_3u3pj")
+stretch_mode = 1
