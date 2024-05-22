@@ -28,7 +28,7 @@ enum PLAYER_STATE { IDLE, RUN, JUMP, FALL, HURT }
 
 var _state: PLAYER_STATE = PLAYER_STATE.IDLE
 var _invincible = false
-var _lives: int = 5
+var _lives: int = 10
 var _can_coyote = true
 var _jump_counter = 0
 var _wall_jump_power = Vector2(300, -200)

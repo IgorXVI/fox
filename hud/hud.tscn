@@ -67,6 +67,31 @@ layout_mode = 2
 texture = ExtResource("2_n2xbs")
 stretch_mode = 3
 
+[node name="L6" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxHearts"]
+layout_mode = 2
+texture = ExtResource("2_n2xbs")
+stretch_mode = 3
+
+[node name="L7" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxHearts"]
+layout_mode = 2
+texture = ExtResource("2_n2xbs")
+stretch_mode = 3
+
+[node name="L8" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxHearts"]
+layout_mode = 2
+texture = ExtResource("2_n2xbs")
+stretch_mode = 3
+
+[node name="L9" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxHearts"]
+layout_mode = 2
+texture = ExtResource("2_n2xbs")
+stretch_mode = 3
+
+[node name="L10" type="TextureRect" parent="MarginContainer/HBoxContainer/HBoxHearts"]
+layout_mode = 2
+texture = ExtResource("2_n2xbs")
+stretch_mode = 3
+
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 layout_mode = 1
